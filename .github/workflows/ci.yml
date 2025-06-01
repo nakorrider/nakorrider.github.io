@@ -23,5 +23,5 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           fail: true
-          # Optional: add ignore or config options here
-
+          timeout: 30       # Timeout per request in seconds (default is 60)
+          concurrency: 5    # Number of concurrent requests (default is 10)
