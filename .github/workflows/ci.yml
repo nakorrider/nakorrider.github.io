@@ -1,3 +1,4 @@
+---
 name: Portfolio Nakor Rider CI
 
 on: 
@@ -16,11 +17,11 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # Super-Linter will auto-detect HTML, CSS, JS, Markdown, etc.
+          JSCPD_THRESHOLD: 5
 
       - name: Check for Broken Links
         uses: lycheeverse/lychee-action@v2
         with:
           fail: true
-          # You can add configuration here if needed (e.g., ignore certain URLs)
-          # By default, it will fail the job if any broken links are found.
+          # Optional: add ignore or config options here
+
