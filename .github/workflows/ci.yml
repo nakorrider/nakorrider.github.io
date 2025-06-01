@@ -12,15 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run HTML Linter
+      - name: Run Super-Linter (skip StandardJS)
         uses: github/super-linter@v4
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_JSCPD: false       # Disable duplicate code check
-          VALIDATE_STANDARD: false    # Disable JavaScript Standard Style check
-          VALIDATE_CSS: false         # Disable CSS linting
-          VALIDATE_HTML: false        # Disable HTML linting
+          VALIDATE_STANDARD: false    # Skip StandardJS linting
+          VALIDATE_JSCPD: true        # Keep duplicate code detection
+          VALIDATE_HTML: true         # Keep HTML linting enabled
+          VALIDATE_CSS: true          # Keep CSS linting enabled
+          # Add more VALIDATE_* if you want to enable/disable other linters
 
       - name: Check for Broken Links
         uses: lycheeverse/lychee-action@v2
