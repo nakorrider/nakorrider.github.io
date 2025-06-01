@@ -1,33 +1,20 @@
-name: CI Pipeline
-
-# Trigger the workflow on pushes and pull requests to the main branch
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+name: Portfolio CI
+on: [push, pull_request] # Run on every push and PR
 jobs:
-  validate:
-    name: Validation Checks
-    runs-on: ubuntu-latest
+ build_and_test:
+ runs-on: ubuntu-latest
+ steps:
+ - uses: actions/checkout@v3
+ - name: Run HTML Linter
+ uses: github/super-linter@v4
+ env:
+ DEFAULT_BRANCH: main
+ GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+ # Super-Linter will auto-detect HTML, CSS, JS, Markdown, etc.
 
-    steps:
-      # Step 1: Checkout the repository code
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Step 2: Run Super-Linter for HTML linting
-      - name: Run Super-Linter
-        uses: github/super-linter@v5
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Step 3: Run Lychee for link checking
-      - name: Check for broken links
-        uses: lycheeverse/lychee-action@v1
-        with:
-          args: --verbose
+ - name: Check for Broken Links
+ uses: lycheeverse/lychee-action@v2
+ with:
+ # You can add configuration here if needed (e.g., ignore certain URLs)
+ # By default it will fail the job if any broken links are found.
+ fail: true
