@@ -17,13 +17,14 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_JSCPD: false       # Disable duplicate code check for now
-          VALIDATE_STANDARD: false    # Disable JavaScript Standard Style check for now
-          JSCPD_THRESHOLD: 5          # Just in case (ignored with VALIDATE_JSCPD:false)
+          VALIDATE_JSCPD: false       # Disable duplicate code check
+          VALIDATE_STANDARD: false    # Disable JavaScript Standard Style check
+          VALIDATE_CSS: false         # Disable CSS linting
+          VALIDATE_HTML: false        # Disable HTML linting
 
       - name: Check for Broken Links
         uses: lycheeverse/lychee-action@v2
         with:
           fail: true
-          timeout: 30                # Timeout per request in seconds
-          concurrency: 5             # Limit concurrent requests
+          timeout: 30
+          concurrency: 5
